@@ -12,3 +12,10 @@ jobs:
         with:
           args:
             build -a
+      - name: Ballerina Push
+        uses: ballerina-platform/ballerina-action@slp2
+        with:
+          env: 
+            BALLERINA_CENTRAL_ACCESS_TOKEN = ${{ secrets.BallerinaToken }}
+          args: 
+            push invoice_util
