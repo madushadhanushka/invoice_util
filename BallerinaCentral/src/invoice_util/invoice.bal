@@ -6,5 +6,5 @@ public type Invoice record {
     string customerMobileNumber;
     time:Time invoiceDate;
     float discount;
-    table<Item> itemList;
+    table<Product> productList;
 };

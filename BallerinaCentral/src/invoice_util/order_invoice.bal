@@ -15,24 +15,24 @@ public function generateInvoice(Invoice invoice) returns xml {
     <div>Mobile: ${invoice.customerMobileNumber}</div>
     <div>Billing Date: ${time}</div>
     <div><table>
-    <tr><th>Item Name</th></tr>
-    <tr><th>Quantity</th></tr>
-    <tr><th>Per price</th></tr>
-    <tr><th>Total</th></tr>
-    ${generateItemlist(invoice.itemList)}
-    </table></div>
+    <tr>
+    <th>Product Name</th>
+    <th>Quantity</th>
+    <th>Per price</th>
+    <th>Total</th></tr><tr>
+    ${generateProductlist(invoice.productList)}
+    </tr></table></div>
     </div>`;
     return invoiceOutput;
 }
-function generateItemlist(table<Item> itemList) returns xml{
-    xml ouput = xml `<tr></tr>`;
-    foreach var item in itemList {
-        float total = <float>item.quantity * item.unitPrice;
-        ouput += xml `<tr>
-        <td>${item.itemName}</td>
-        <td>${item.quantity}</td>
-        <td>${item.unitPrice}</td>
-        <td>${io:sprintf("%.2f", total)}</td></tr>`;
+function generateProductlist(table<Product> productList) returns xml{
+    xml output;
+    foreach var product in productList {
+        float total = <float>product.quantity * product.unitPrice;
+        output =  xml `<td>${product.productName}</td>`
+        + xml `<td>${product.quantity}</td>`
+        + xml `<td>${product.unitPrice}</td>`
+        + xml `<td>${io:sprintf("%.2f", total)}</td></tr>`;
     }
-    return ouput;
+    return output;
 }
