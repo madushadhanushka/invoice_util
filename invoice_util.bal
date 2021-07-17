@@ -1,8 +1,16 @@
-import ballerina/time;
-import ballerina/io;
+// Update the version in Ballerina.toml file
+// Build the project with `bal build -c`
+// Push to Ballerina Central with `bal push`
+// Check Ballerina Central
 
+import ballerina/io;
+import ballerina/time;
+
+public function hello() {
+    io:println("Hello World!");
+}
 public function generateInvoice(Invoice invoice) returns xml {
-    string|error converted_time = time:format(invoice.invoiceDate,time:TIME_FORMAT_RFC_1123);
+    string|error converted_time = time:utcToString(invoice.invoiceDate);
     string time = "";
     if (converted_time is string) {
         time = converted_time;
@@ -32,7 +40,7 @@ function generateProductlist(table<Product> productList) returns xml{
         output =  xml `<td>${product.productName}</td>`
         + xml `<td>${product.quantity}</td>`
         + xml `<td>${product.unitPrice}</td>`
-        + xml `<td>${io:sprintf("%.2f", total)}</td></tr>`;
+        + xml `<td>${total}</td></tr>`;
     }
     return output;
 }

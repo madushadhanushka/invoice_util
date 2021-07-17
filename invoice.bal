@@ -4,7 +4,7 @@ public type Invoice record {
     string customerAddress;
     string customerBillingAddress;
     string customerMobileNumber;
-    time:Time invoiceDate;
+    time:Utc invoiceDate;
     float discount;
     table<Product> productList;
 };
